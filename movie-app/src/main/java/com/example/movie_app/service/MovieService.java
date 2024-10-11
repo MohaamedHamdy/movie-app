@@ -20,9 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class MovieService {
@@ -70,8 +68,6 @@ public class MovieService {
         return new ResponseEntity<>(successResponse, HttpStatus.CREATED);
     }
 
-
-
     public ResponseEntity<SuccessResponse> getMovieDetails(long movieId) {
         logger.info("Getting movie details");
         Movie movie;
@@ -91,6 +87,23 @@ public class MovieService {
 
         return new ResponseEntity<>(successResponse, HttpStatus.OK);
     }
+
+    public ResponseEntity<SuccessResponse> getAllMovies() {
+        logger.info("Getting all movies");
+        List<Movie> movies = movieRepository.findAll();
+        List<MovieDtoResponse> movieDtoResponseList = new ArrayList<>();
+        for (Movie movie : movies) {
+            MovieDtoResponse movieDtoResponse = MovieDtoMapper.toMovieDtoResponse(movie);
+            movieDtoResponseList.add(movieDtoResponse);
+        }
+        SuccessResponse successResponse = new SuccessResponse();
+        successResponse.setCode(HttpStatus.FOUND.value());
+        successResponse.setData(movieDtoResponseList);
+        successResponse.setMessage("All movies retrieved successfully");
+        return new ResponseEntity<>(successResponse, HttpStatus.OK);
+    }
+
+
 
     public Set<Actor> getActorById(Set<Long> id) {
         Set<Actor> actors = new HashSet<>();

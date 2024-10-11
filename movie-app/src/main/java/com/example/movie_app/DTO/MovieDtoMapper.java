@@ -33,6 +33,7 @@ public class MovieDtoMapper {
     }
     public static MovieDtoResponse toMovieDtoResponse(Movie movie) {
         MovieDtoResponse movieDto = new MovieDtoResponse();
+        movieDto.setMovieId(movie.getId());
         movieDto.setDescription(movie.getDescription());
         movieDto.setTitle(movie.getTitle());
         movieDto.setDuration(movie.getDuration());
