@@ -17,7 +17,7 @@ public class Actor {
     private String image;
 
     // many to many movies
-    @ManyToMany(mappedBy = "actors")
+    @ManyToMany(mappedBy = "actors", cascade = CascadeType.PERSIST)
     @JsonBackReference
     private Set<Movie> movies;
 

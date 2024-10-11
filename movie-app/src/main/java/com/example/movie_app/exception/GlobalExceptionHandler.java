@@ -30,6 +30,14 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(MovieNotFound.class)
+    public ResponseEntity<ErrorResponse> handleMovieNotFound(MovieNotFound e) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setMessage(e.getMessage());
+        errorResponse.setCode(HttpStatus.NOT_FOUND.name());
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(ActorNotFound.class)
     public ResponseEntity<ErrorResponse> handleActorNotFound(ActorNotFound e) {
         ErrorResponse errorResponse = new ErrorResponse();

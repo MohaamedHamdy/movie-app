@@ -14,7 +14,7 @@ public class Genre {
     private long id;
     private String name;
 
-    @ManyToMany(mappedBy = "genres")
+    @ManyToMany(mappedBy = "genres",cascade = CascadeType.PERSIST)
     @JsonBackReference
     private Set<Movie> movies;
 }

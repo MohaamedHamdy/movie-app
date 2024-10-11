@@ -2,11 +2,13 @@ package com.example.movie_app.service;
 
 import com.example.movie_app.DTO.MovieDto;
 import com.example.movie_app.DTO.MovieDtoMapper;
+import com.example.movie_app.DTO.MovieDtoResponse;
 import com.example.movie_app.entity.Actor;
 import com.example.movie_app.entity.Genre;
 import com.example.movie_app.entity.Movie;
 import com.example.movie_app.exception.ActorNotFound;
 import com.example.movie_app.exception.GenreNotFound;
+import com.example.movie_app.exception.MovieNotFound;
 import com.example.movie_app.repository.ActorRepository;
 import com.example.movie_app.repository.GenreRepository;
 import com.example.movie_app.repository.MovieRepository;
@@ -19,7 +21,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -28,7 +29,7 @@ public class MovieService {
 
     Logger logger = LoggerFactory.getLogger(MovieService.class);
 
-    private MovieRepository movieRepository;
+    private final MovieRepository movieRepository;
     private final GenreRepository genreRepository;
     private final ActorRepository actorRepository;
 
@@ -69,6 +70,26 @@ public class MovieService {
         return new ResponseEntity<>(successResponse, HttpStatus.CREATED);
     }
 
+
+    public ResponseEntity<SuccessResponse> getMovieDetails(long movieId) {
+        logger.info("Getting movie details");
+        Movie movie;
+        Optional<Movie> movieOptional = movieRepository.findById(movieId);
+        if (movieOptional.isPresent()) {
+            movie = movieOptional.get();
+        } else {
+            throw new MovieNotFound();
+        }
+        logger.info("Movie Details" + movie);
+        MovieDtoResponse movieDto = MovieDtoMapper.toMovieDtoResponse(movie);
+
+        SuccessResponse successResponse = new SuccessResponse();
+        successResponse.setCode(HttpStatus.OK.value());
+        successResponse.setData(movieDto);
+        successResponse.setMessage("Movie details retrieved successfully");
+
+        return new ResponseEntity<>(successResponse, HttpStatus.OK);
+    }
 
     public Set<Actor> getActorById(Set<Long> id) {
         Set<Actor> actors = new HashSet<>();
