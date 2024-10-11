@@ -71,6 +71,7 @@ public class MovieService {
     }
 
 
+
     public ResponseEntity<SuccessResponse> getMovieDetails(long movieId) {
         logger.info("Getting movie details");
         Movie movie;
