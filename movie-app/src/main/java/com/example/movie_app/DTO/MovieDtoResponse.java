@@ -2,6 +2,8 @@ package com.example.movie_app.DTO;
 
 import com.example.movie_app.entity.Actor;
 import com.example.movie_app.entity.Genre;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -19,4 +21,7 @@ public class MovieDtoResponse{
     private String trailerUrl;
     private Set<Genre> genreSet;
     private Set<Actor> actorSet;
+    private double imdbRating;
+    private String imdbRatingCount;
+
 }

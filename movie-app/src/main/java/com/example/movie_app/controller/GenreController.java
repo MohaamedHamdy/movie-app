@@ -18,7 +18,7 @@ public class GenreController {
         this.genreService = genreService;
     }
 
-    @PostMapping
+    @PostMapping("/admin")
     public ResponseEntity<SuccessResponse> createGenre(@Valid @RequestBody GenreDto genreDto) {
         return genreService.createGenre(genreDto);
     }

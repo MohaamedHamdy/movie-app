@@ -1,13 +1,16 @@
 package com.example.movie_app.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Data
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Reviews {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

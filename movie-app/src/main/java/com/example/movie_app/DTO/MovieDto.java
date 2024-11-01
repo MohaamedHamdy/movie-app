@@ -29,6 +29,11 @@ public class MovieDto {
     @NotBlank(message = "Trailer Url can't be null")
     private String trailerUrl;
 
+    @NotNull
+    private double imdbRating;
+    @NotBlank(message = "Count can't be null")
+    private String imdbRatingCount;
+
     private Set<Long> actors_id;
     private Set<String> genres;
     private Set<Genre> genreSet;

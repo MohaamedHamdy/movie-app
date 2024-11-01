@@ -21,7 +21,7 @@ public class ActorController {
         this.actorService = actorService;
     }
 
-    @PostMapping
+    @PostMapping("/admin")
     public ResponseEntity<SuccessResponse> createActor(@RequestBody ActorDto actorDto) {
         return actorService.createActor(actorDto);
     }

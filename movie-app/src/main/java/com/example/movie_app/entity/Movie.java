@@ -1,14 +1,17 @@
 package com.example.movie_app.entity;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
+
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.List;
 
 @Entity
-@Data
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,14 +24,16 @@ public class Movie {
     private LocalDateTime releaseDate;
     private String posterUrl;
     private String trailerUrl;
-
+    private double imdbRating;
+    private String imdbRatingCount;
     // cast many to many
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "movies_actors",
             joinColumns = @JoinColumn(name = "movie_id"),
-            inverseJoinColumns = @JoinColumn(name= "actor_id")
+            inverseJoinColumns = @JoinColumn(name = "actor_id")
     )
+//    @JsonIgnore
     private Set<Actor> actors;
 
     // list of reviews
@@ -36,6 +41,8 @@ public class Movie {
     private List<Reviews> reviews;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
+//    @JsonIgnore
+    @JsonBackReference
     @JoinTable(
             name = "movie_genres",
             joinColumns = @JoinColumn(name = "movie_id"),

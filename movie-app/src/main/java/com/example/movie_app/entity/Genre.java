@@ -2,12 +2,15 @@ package com.example.movie_app.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.*;
 
 @Entity
-@Data
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
